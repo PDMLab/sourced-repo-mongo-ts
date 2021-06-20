@@ -1,0 +1,38 @@
+name: build
+
+on:
+  push:
+    branches:
+      - '*'
+  pull_request:
+    branches:
+      - master
+jobs:
+  lint:
+    runs-on: ubuntu-18.04
+    name: Lint
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '14'
+      - run: yarn
+      - run: yarn lint
+  build:
+    runs-on: ubuntu-18.04
+    name: Build + Test
+    services:
+      db:
+        # Docker Hub image
+        image: mongo
+        ports:
+          # Opens tcp port 6379 on the host and service container
+          - 27017:27017
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '14'
+      - run: yarn
+      - run: yarn build
+      - run: yarn test
