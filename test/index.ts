@@ -96,32 +96,34 @@ describe('Repository', function () {
       db.collection('Market.events').drop(function () {
         db.collection('Market.snapshots').drop(async () => {
           repository = new Repository(Market, { db })
+          await repository.init()
           return done()
         })
       })
     })
   })
 
-  // it.only('should create unique indices', function (done) {
-  //   let foundIndex
-  //   db.collection('Market.events')
-  //     .listIndexes()
-  //     .each((err, index) => {
-  //       console.log('test', index)
-  //       if (index) {
-  //         console.log('index')
-  //         const idx: { key: { id: number; version: number } } = index as {
-  //           key: { id: number; version: number }
-  //         }
-  //         if (idx.key && _.isEqual(idx.key, { id: 1, version: 1 })) {
-  //           foundIndex = index
-  //           console.log('found')
-  //         }
-  //       }
-  //       // foundIndex.should.have.property('unique', true)
-  //       done()
-  //     })
-  // })
+  it('should create unique indices', function (done) {
+    let foundIndex
+    const repo = new Repository(Market, { db })
+    repo.init().then(() => {
+      db.collection('Market.events')
+        .listIndexes()
+        .each((err, index) => {
+          if (index) {
+            const idx: { key: { id: number; version: number } } = index as {
+              key: { id: number; version: number }
+            }
+            if (idx.key && _.isEqual(idx.key, { id: 1, version: 1 })) {
+              foundIndex = index
+            }
+          } else {
+            foundIndex.should.have.property('unique', true)
+            done()
+          }
+        })
+    })
+  })
 
   it('should initialize market entity and digest 12 events, setting version, snapshotVersion, and price', async () => {
     const id = 'somecusip'

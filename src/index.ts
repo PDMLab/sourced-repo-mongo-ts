@@ -14,7 +14,7 @@ type Entity = SourcedEntity & {
 
 export class Repository {
   entityType: (snapshot, events) => void
-  indices: string[]
+  indices: any[]
   snapshotFrequency: number
   snapshots: Collection<any>
   events: Collection<any>
@@ -47,15 +47,15 @@ export class Repository {
       await this.snapshots.createIndex(index)
       await this.events.createIndex(index)
     })
-    this.events
-      .createIndex({ id: 1, version: 1 }, { unique: true, background: false })
-      .then(async (index) => {
-        await this.snapshots.createIndex(
-          { id: 1, version: 1 },
-          { unique: true, background: false }
-        )
-        await this.snapshots.createIndex('snapshotVersion')
-      })
+    await this.events.createIndex(
+      { id: 1, version: 1 },
+      { unique: true, background: false }
+    )
+    await this.snapshots.createIndex(
+      { id: 1, version: 1 },
+      { unique: true, background: false }
+    )
+    await this.snapshots.createIndex('snapshotVersion')
 
     log('initialized %s entity store', this.entityType.name)
   }
