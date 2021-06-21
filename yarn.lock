@@ -4923,10 +4923,10 @@ source-map@^0.7.3:
   resolved "https://registry.yarnpkg.com/source-map/-/source-map-0.7.3.tgz#5302f8169031735226544092e64981f751750383"
   integrity sha512-CkCj6giN3S+n9qrYiBTX5gystlENnRW5jZeNLHpe6aue+SrHcG5VYwujhW9s4dY31mEGsxBDrHR6oI69fTXsaQ==
 
-sourced-ts@0.0.3:
-  version "0.0.3"
-  resolved "https://registry.yarnpkg.com/sourced-ts/-/sourced-ts-0.0.3.tgz#45114a1005a69ce000e68c6b4e6a99185cad2b8c"
-  integrity sha512-9xal4azUFTxnDr7PDdIzstyQBnlkRMPU3rqLQudc8KZPol//qyFVrmMR/K8ecZE+U8cjY//VJJaieRm6BWzhfQ==
+sourced-ts@0.0.8:
+  version "0.0.8"
+  resolved "https://registry.yarnpkg.com/sourced-ts/-/sourced-ts-0.0.8.tgz#25ea6641c1333d2345d70f271c2283d522f2f463"
+  integrity sha512-lUywPDW4Z0j3xJEEK/yf9PUR63N+THt6cYi/0VmF8l1dNrN3Z3j4zBGrBRFzJ1CheWcrqBqI4MGv8bKuPsIrzg==
   dependencies:
     debug "^4.1.1"
     lodash.clonedeep "^4.5.0"
