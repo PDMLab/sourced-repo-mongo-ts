@@ -87,6 +87,20 @@ export class Repository {
     })
   }
 
+  async getAllEvents(options?: { batchSize?: number }): Promise<unknown[]> {
+    const events: unknown[] = []
+    const { batchSize } = options ? options : { batchSize: 1000 }
+    await this.events
+      .find()
+      .sort({ id: 1, version: 1 })
+      .allowDiskUse()
+      .batchSize(batchSize)
+      .forEach((d) => {
+        events.push(d)
+      })
+    return events
+  }
+
   async get(id): Promise<any> {
     return this._getByIndex('id', id)
   }

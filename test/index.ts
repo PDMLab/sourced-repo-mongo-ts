@@ -423,4 +423,130 @@ describe('Repository', function () {
     const market = await repository.getAll(['fake'])
     should.not.exist(market)
   })
+
+  it('should return all events when getAllEvents called', async () => {
+    const id = 'somecusip6'
+    const mrkt = new Market()
+
+    const id2 = 'somecusip7'
+    const mrkt2 = new Market()
+
+    const id3 = 'somecusip8'
+    const mrkt3 = new Market()
+
+    const id4 = 'somecusip9'
+    const mrkt4 = new Market()
+
+    mrkt.init({ id: id })
+    mrkt2.init({ id: id2 })
+    mrkt3.init({ id: id3 })
+    mrkt4.init({ id: id4 })
+
+    mrkt.createOrder({ side: 'b', price: 90, quantity: 1001 })
+
+    mrkt2.createOrder({ side: 'b', price: 90, quantity: 1002 })
+    mrkt2.createOrder({ side: 'b', price: 90, quantity: 1003 })
+
+    mrkt3.createOrder({ side: 'b', price: 90, quantity: 1004 })
+    mrkt3.createOrder({ side: 'b', price: 90, quantity: 1005 })
+    mrkt3.createOrder({ side: 'b', price: 90, quantity: 1006 })
+    mrkt3.createOrder({ side: 'b', price: 90, quantity: 1007 })
+    mrkt3.createOrder({ side: 'b', price: 90, quantity: 1008 })
+    mrkt3.createOrder({ side: 'b', price: 90, quantity: 1009 })
+    mrkt3.createOrder({ side: 'b', price: 90, quantity: 1010 })
+    mrkt3.createOrder({ side: 'b', price: 90, quantity: 1011 })
+    mrkt3.createOrder({ side: 'b', price: 90, quantity: 1012 })
+    mrkt3.createOrder({ side: 'b', price: 90, quantity: 1013 })
+    mrkt3.createOrder({ side: 'b', price: 90, quantity: 1014 })
+    mrkt3.createOrder({ side: 'b', price: 90, quantity: 1015 })
+
+    mrkt4.createOrder({ side: 'b', price: 90, quantity: 1016 })
+    mrkt4.createOrder({ side: 'b', price: 90, quantity: 1017 })
+    mrkt4.createOrder({ side: 'b', price: 90, quantity: 1018 })
+    mrkt4.createOrder({ side: 'b', price: 90, quantity: 1019 })
+    mrkt4.createOrder({ side: 'b', price: 90, quantity: 1020 })
+    mrkt4.createOrder({ side: 'b', price: 90, quantity: 1022 })
+    mrkt4.createOrder({ side: 'b', price: 90, quantity: 1023 })
+    mrkt4.createOrder({ side: 'b', price: 90, quantity: 1024 })
+    mrkt4.createOrder({ side: 'b', price: 90, quantity: 1025 })
+    mrkt4.createOrder({ side: 'b', price: 90, quantity: 1026 })
+    mrkt4.createOrder({ side: 'b', price: 90, quantity: 1027 })
+    mrkt4.createOrder({ side: 'b', price: 90, quantity: 1028 })
+    mrkt4.createOrder({ side: 'b', price: 90, quantity: 1029 })
+    mrkt4.createOrder({ side: 'b', price: 90, quantity: 1030 })
+    mrkt4.createOrder({ side: 'b', price: 90, quantity: 1031 })
+    mrkt4.createOrder({ side: 'b', price: 90, quantity: 1032 })
+    mrkt4.createOrder({ side: 'b', price: 90, quantity: 1033 })
+    mrkt4.createOrder({ side: 'b', price: 90, quantity: 1034 })
+    mrkt4.createOrder({ side: 'b', price: 90, quantity: 1035 })
+    mrkt4.createOrder({ side: 'b', price: 90, quantity: 1036 })
+
+    await repository.commitAll([mrkt, mrkt2, mrkt3, mrkt4])
+
+    const events = await repository.getAllEvents()
+    events.length.should.equal(39)
+  })
+
+  it('should return all events when getAllEvents called with batch size', async () => {
+    const id = 'somecusip6'
+    const mrkt = new Market()
+
+    const id2 = 'somecusip7'
+    const mrkt2 = new Market()
+
+    const id3 = 'somecusip8'
+    const mrkt3 = new Market()
+
+    const id4 = 'somecusip9'
+    const mrkt4 = new Market()
+
+    mrkt.init({ id: id })
+    mrkt2.init({ id: id2 })
+    mrkt3.init({ id: id3 })
+    mrkt4.init({ id: id4 })
+
+    mrkt.createOrder({ side: 'b', price: 90, quantity: 1001 })
+
+    mrkt2.createOrder({ side: 'b', price: 90, quantity: 1002 })
+    mrkt2.createOrder({ side: 'b', price: 90, quantity: 1003 })
+
+    mrkt3.createOrder({ side: 'b', price: 90, quantity: 1004 })
+    mrkt3.createOrder({ side: 'b', price: 90, quantity: 1005 })
+    mrkt3.createOrder({ side: 'b', price: 90, quantity: 1006 })
+    mrkt3.createOrder({ side: 'b', price: 90, quantity: 1007 })
+    mrkt3.createOrder({ side: 'b', price: 90, quantity: 1008 })
+    mrkt3.createOrder({ side: 'b', price: 90, quantity: 1009 })
+    mrkt3.createOrder({ side: 'b', price: 90, quantity: 1010 })
+    mrkt3.createOrder({ side: 'b', price: 90, quantity: 1011 })
+    mrkt3.createOrder({ side: 'b', price: 90, quantity: 1012 })
+    mrkt3.createOrder({ side: 'b', price: 90, quantity: 1013 })
+    mrkt3.createOrder({ side: 'b', price: 90, quantity: 1014 })
+    mrkt3.createOrder({ side: 'b', price: 90, quantity: 1015 })
+
+    mrkt4.createOrder({ side: 'b', price: 90, quantity: 1016 })
+    mrkt4.createOrder({ side: 'b', price: 90, quantity: 1017 })
+    mrkt4.createOrder({ side: 'b', price: 90, quantity: 1018 })
+    mrkt4.createOrder({ side: 'b', price: 90, quantity: 1019 })
+    mrkt4.createOrder({ side: 'b', price: 90, quantity: 1020 })
+    mrkt4.createOrder({ side: 'b', price: 90, quantity: 1022 })
+    mrkt4.createOrder({ side: 'b', price: 90, quantity: 1023 })
+    mrkt4.createOrder({ side: 'b', price: 90, quantity: 1024 })
+    mrkt4.createOrder({ side: 'b', price: 90, quantity: 1025 })
+    mrkt4.createOrder({ side: 'b', price: 90, quantity: 1026 })
+    mrkt4.createOrder({ side: 'b', price: 90, quantity: 1027 })
+    mrkt4.createOrder({ side: 'b', price: 90, quantity: 1028 })
+    mrkt4.createOrder({ side: 'b', price: 90, quantity: 1029 })
+    mrkt4.createOrder({ side: 'b', price: 90, quantity: 1030 })
+    mrkt4.createOrder({ side: 'b', price: 90, quantity: 1031 })
+    mrkt4.createOrder({ side: 'b', price: 90, quantity: 1032 })
+    mrkt4.createOrder({ side: 'b', price: 90, quantity: 1033 })
+    mrkt4.createOrder({ side: 'b', price: 90, quantity: 1034 })
+    mrkt4.createOrder({ side: 'b', price: 90, quantity: 1035 })
+    mrkt4.createOrder({ side: 'b', price: 90, quantity: 1036 })
+
+    await repository.commitAll([mrkt, mrkt2, mrkt3, mrkt4])
+
+    const events = await repository.getAllEvents({ batchSize: 5 })
+    events.length.should.equal(39)
+  })
 })
