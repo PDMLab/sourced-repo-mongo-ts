@@ -1,11 +1,11 @@
-import { Collection, Db, ObjectID } from 'mongodb'
+import { Collection, Db, ObjectId } from 'mongodb'
 import logger from 'debug'
 const log = logger('sourced-repo-mongo')
 import _ from 'lodash'
 import { SourcedEntity } from 'sourced-ts'
 
 type Snapshot = SourcedEntity & {
-  _id: ObjectID
+  _id: ObjectId
 }
 
 type Entity = SourcedEntity & {
