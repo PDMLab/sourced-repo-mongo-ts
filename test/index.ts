@@ -87,10 +87,7 @@ describe('Repository', function () {
   })
 
   beforeEach((done) => {
-    MongoClient.connect('mongodb://127.0.0.1:27017/sourced', {
-      useNewUrlParser: true,
-      useUnifiedTopology: true
-    }).then((client) => {
+    MongoClient.connect('mongodb://127.0.0.1:27017/sourced').then((client) => {
       db = client.db()
       dbClient = client
       db.collection('Market.events').drop(function () {
@@ -103,26 +100,11 @@ describe('Repository', function () {
     })
   })
 
-  it('should create unique indices', function (done) {
-    let foundIndex
+  it('should create unique indices', async function () {
     const repo = new Repository(Market, { db })
-    repo.init().then(() => {
-      db.collection('Market.events')
-        .listIndexes()
-        .each((err, index) => {
-          if (index) {
-            const idx: { key: { id: number; version: number } } = index as {
-              key: { id: number; version: number }
-            }
-            if (idx.key && _.isEqual(idx.key, { id: 1, version: 1 })) {
-              foundIndex = index
-            }
-          } else {
-            foundIndex.should.have.property('unique', true)
-            done()
-          }
-        })
-    })
+    await repo.init()
+    const indices = await db.collection('Market.events').listIndexes().toArray()
+    indices.filter((i) => i.unique === true).length.should.equal(1)
   })
 
   it('should initialize market entity and digest 12 events, setting version, snapshotVersion, and price', async () => {
