@@ -33,10 +33,7 @@ describe('Repository', (): void => {
   })
 
   beforeEach(async () => {
-    client = await MongoClient.connect('mongodb://localhost:27017/test', {
-      useNewUrlParser: true,
-      useUnifiedTopology: true
-    })
+    client = await MongoClient.connect('mongodb://localhost:27017/test')
     db = client.db()
 
     repository = new Repository(Customer, { db })
