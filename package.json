@@ -67,7 +67,7 @@
   "contributors": [
     "mattwalters5@gmail.com"
   ],
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/pdmlab/sourced-repo-mongo-ts/issues"
   },
